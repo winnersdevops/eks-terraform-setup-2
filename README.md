@@ -18,8 +18,25 @@
 + Attach IAM Role to EC2 Instance.
 
 ### Install Terraform
-
+$ sudo adduser eksadmin
+$ sudo echo "eksadmin  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/eksadmin
+$ sudo su - eksadmin
 ``` sh
+$ git clone https://github.com/mylandmarktechs/eks-terraform-setup
+$ cd eks-terraform-setup
+$ sh terraform-install.sh
+or
+$ wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
+$ sudo unzip terraform_0.12.26_linux_amd64.zip -d /usr/local/bin/
+# Export terraform binary path temporally
+$ export PATH=$PATH:/usr/local/bin
+# Add path permanently for current user.By Exporting path in .bashrc file at end of file.
+$ vi .bashrc
+   export PATH="$PATH:/usr/local/bin"
+# Source .bashrc to reflect for current session
+$ source ~/.bashrc  
+# run the scripts https://github.com/mylandmarktechs/eks-terraform-setup/blob/main/terraform-install.sh
+
 $ sudo yum install wget unzip -y
 $ wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
 $ sudo unzip terraform_0.12.26_linux_amd64.zip -d /usr/local/bin/
@@ -56,6 +73,10 @@ $ terraform apply --auto-approve
 ```
 ## create the kubeconfig file  
 $ mkdir .kube/ && vi .kube/config
+$ kubectl get pod
+$ #!/bin/bash 
+$ sh iam-authenticator.sh 
+$ kubectl get pod
 ## deploy cluster auto scaler
 $ kubectl apply -f clusterautoscaler.yml
 
@@ -80,6 +101,5 @@ kubectl create deployment autoscaler-demo --image=nginx
 kubectl get pods --all-namespaces | grep Running | wc -l
 kubectl get nodes -o yaml | grep pods
 kubectl scale deployment autoscaler-demo --replicas=20
-
 https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
 aws-iam-authenticator help
