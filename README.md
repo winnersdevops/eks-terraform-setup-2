@@ -73,7 +73,7 @@ $ terraform apply --auto-approve
 
 ```sh
 ##  Destroy Infrastructure  
-$ terraform apply --auto-approve
+$ terraform destroy --auto-approve
 
 ## create the kubeconfig file  
 $ mkdir .kube/ 
