@@ -1,121 +1,69 @@
-# kops-kubernetes-cluster-configuration
+#  **<span style="color:green">Landmark Technologies, Ontario, Canada.</span>**
+### **<span style="color:green">Contacts: +1437 215 2483<br> WebSite : <http://mylandmarktech.com/></span>**
+### **Email: mylandmarktech@gmail.com**
 # Landmark Technologies,  -    Landmark Technologies 
 # Tel: +1 437 215 2483,   -     +1 437 215 2483 
 # mylandmarktech@gaIL.com,  -    www.mylandmarktech.com 
+# Terraform Installation And Setup In AWS EC2 Linux Instances
+#  Using Terraform to prosion a fully managed Amazon EKS Cluster
 
-# Setting up Kubernetes (K8s) Cluster on AWS Using KOPS
+##### Prerequisite
++ AWS Acccount.
++ Create an ubuntu EC2 Instnace.
++ Create IAM Role With Required Policies.
+   + VPCFullAccess
+   + EC2FullAcces
+   + S3FullAccess  ..etc
+   + Administrator Access
++ Attach IAM Role to EC2 Instance.
 
-1.kops is a software use to create production ready k8s cluster in a cloud provider like AWS.
+### Install Terraform
 
-2. kOPS SUPPORTS MULTIPLE CLOUD PROVIDERS
+``` sh
+$ sudo yum install wget unzip -y
+$ wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
+$ sudo unzip terraform_0.12.26_linux_amd64.zip -d /usr/local/bin/
+# Export terraform binary path temporally
+$ export PATH=$PATH:/usr/local/bin
+# Add path permanently for current user.By Exporting path in .bashrc file at end of file.
+$ vi .bashrc
+   export PATH="$PATH:/usr/local/bin"
+# Source .bashrc to reflect for current session
+$ source ~/.bashrc  
+# run the scripts https://github.com/mylandmarktechs/eks-terraform-setup/blob/main/terraform-install.sh
+```
+#### Clone terraform scripts
+``` sh
+$ git clone https://github.com/mylandmarktechs/eks-terraform-setup
+$ cd eks-terraform-setup
+```
+#### <span style="color:orange">Update Your Key Name in variables.tf file before executing terraform script.</span>
+## Infrastructure As A Code
+#### Create Infrastructure(Amazon EKS, IAM Roles, AutoScalingGroups, Launch Configuration, LoadBalancer, NodeGroups,VPC,Subnets,Route Tables,Security Groups, NACLs, ..etc) As A Code Using Terraform Scripts
+``` sh
+# Initialise to install plugins
+$ terraform init 
+# Validate terraform scripts
+$ terraform validate 
+# Plan terraform scripts which will list resources which is going  be created.
+$ terraform plan 
+# Apply to create resources
+$ terraform apply --auto-approve
+```
 
-3. Kops compete with managed kunbernestes services like EKS, AKS and GKE
+##  Destroy Infrastructure  
+```sh
+```
+## create the kubeconfig file  
+$ mkdir .kube/ && vi .kube/config
+## deploy cluster auto scaler
+$ kubectl apply -f clusterautoscaler.yml
 
-4. Kops is cheaper than the others.
+ ```
+```
+##  Destroy Infrastructure  
+```sh
+$ terraform destroy --auto-approve 
+```
 
-5. Kops create production ready K8S.
-
-6. KOPS create resources like: LoadBalancers, ASG, Launch Configuration, woker node Master node (CONTROL PLANE.
-
-7. KOPS is IaaC
-
-#!/bin/bash
-# 1) Create Ubuntu EC2 instance in AWS
-
-# 2) install AWSCLI
-
- sudo apt update -y
- sudo apt install unzip wget -y
- sudo curl https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -o awscli-bundle.zip
- sudo apt install unzip python -y
- sudo unzip awscli-bundle.zip
- sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
- 
- 
-# 3) Install kops software on ubuntu instance:
-
- 	#Install wget if not installed
- 	sudo apt install wget -y
- 	sudo wget https://github.com/kubernetes/kops/releases/download/v1.16.1/kops-linux-amd64
- 	sudo chmod +x kops-linux-amd64
- 	sudo mv kops-linux-amd64 /usr/local/bin/kops
- 
-# 4) Install kubectl
-
- sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
- sudo chmod +x ./kubectl
- sudo mv ./kubectl /usr/local/bin/kubectl
- aws s3 mb s3://nubonglegah.k8.local
- aws s3 ls
-
-# 5) Create an IAM role from AWS Console or CLI with below Policies.
-
-	AmazonEC2FullAccess 
-	AmazonS3FullAccess
-	IAMFullAccess 
-	AmazonVPCFullAccess
-
-
-Then Attach IAM role to ubuntu server from Console Select KOPS Server --> Actions --> Instance Settings --> Attach/Replace IAM Role --> Select the role which
-You Created. --> Save.
-
-
-
-# 6) create an S3 bucket Execute below commond in KOPS Server use unique bucket name if you get bucket name exists error.
-
-	aws s3 mb s3://class21.k8s.local
-	aws s3 ls
-	
-    ex: s3://nubong.k8s.local
-     
-	Expose environment variable:
-
-    # Add env variables in bashrc
-    vi .bashrc
-	
-	# Give Unique Name And S3 Bucket which you created.
-	export NAME=class21.k8s.local
-	export KOPS_STATE_STORE=s3://class21.k8s.local
- 
-    source .bashrc
-	
-# 7) Create sshkeys before creating cluster
-
-    ssh-keygen
- 
-
-# 8) Create kubernetes cluster definitions on S3 bucket
-
-	kops create cluster --zones us-east-2c --networking weave --master-size t2.medium --master-count 1 --node-size t2.large --node-count=2 ${NAME}
-	
-
-	kops create secret --name ${NAME} sshpublickey admin -i ~/.ssh/id_rsa.pub
-
-# 9) Create kubernetes cluser
-
-	 kops update cluster ${NAME} --yes
-
-# 10) Validate your cluster(KOPS will take some time to create cluster ,Execute below commond after 3 or 4 mins)
-
-	   kops validate cluster
- 
-# 11) To list nodes
-
-	  kubectl get nodes 
-  
-  
-  
-# 12) To Delete Cluster
-
-   kops delete cluster --name=${NAME} --state=${KOPS_STATE_STORE} --yes  
-   
-====================================================================================================
-
-
-13 # IF you wan to SSH to Kubernates Master or Nodes Created by KOPS. You can SSH From KOPS_Server
-
-ssh  admin@<IPOrDNS>
-it above command  is not working
-then execute
-ssh -i ~/.ssh/id_rsa admin@<IPOrDNS>
   
