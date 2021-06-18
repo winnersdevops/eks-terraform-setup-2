@@ -26,8 +26,9 @@ $ sudo su - eksadmin
 ``` sh
 $ git clone https://github.com/mylandmarktechs/eks-terraform-setup
 $ cd eks-terraform-setup
+# install terraform using a bash shell script
 $ sh terraform-install.sh
-or
+# OR install terraform by running the commands below
 $ wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
 $ sudo unzip terraform_0.12.26_linux_amd64.zip -d /usr/local/bin/
 # Export terraform binary path temporally
