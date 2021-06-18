@@ -38,7 +38,7 @@ $ git clone https://github.com/mylandmarktechs/eks-terraform-setup
 $ cd eks-terraform-setup
 ```
 #### <span style="color:orange">Update Your Key Name in variables.tf file before executing terraform script.</span>
-## Infrastructure As A Code
+## Infrastructure As A Code using Terraform
 #### Create Infrastructure(Amazon EKS, IAM Roles, AutoScalingGroups, Launch Configuration, LoadBalancer, NodeGroups,VPC,Subnets,Route Tables,Security Groups, NACLs, ..etc) As A Code Using Terraform Scripts
 ``` sh
 # Initialise to install plugins
