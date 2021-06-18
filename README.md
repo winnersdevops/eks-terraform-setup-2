@@ -68,11 +68,14 @@ $ terraform plan
 $ terraform apply --auto-approve
 ```
 
-##  Destroy Infrastructure  
 ```sh
-```
+##  Destroy Infrastructure  
+
+
+
 ## create the kubeconfig file  
-$ mkdir .kube/ && vi .kube/config
+$ mkdir .kube/ 
+$ vi .kube/config
 $ kubectl get pod
 $ #!/bin/bash 
 $ sh iam-authenticator.sh 
