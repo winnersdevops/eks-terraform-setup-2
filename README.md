@@ -3,7 +3,7 @@
 ### **Email: mylandmarktech@gmail.com**
 # Landmark Technologies,  -    Landmark Technologies 
 # Tel: +1 437 215 2483,   -     +1 437 215 2483 
-# mylandmarktech@gaIL.com,  -    www.mylandmarktech.com 
+#    www.mylandmarktech.com 
 # Terraform Installation And Setup In AWS EC2 Linux Instances
 #  Using Terraform to provision a fully managed Amazon EKS Cluster
 
