@@ -5,7 +5,7 @@
 # Tel: +1 437 215 2483,   -     +1 437 215 2483 
 # mylandmarktech@gaIL.com,  -    www.mylandmarktech.com 
 # Terraform Installation And Setup In AWS EC2 Linux Instances
-#  Using Terraform to prosion a fully managed Amazon EKS Cluster
+#  Using Terraform to provision a fully managed Amazon EKS Cluster
 
 ##### Prerequisite
 + AWS Acccount.
