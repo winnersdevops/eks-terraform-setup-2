@@ -106,7 +106,7 @@ resource "aws_eks_node_group" "demo" {
 
   scaling_config {
     desired_size = 2
-    max_size     = 4
+    max_size     = 200
     min_size     = 2
   }
 
