@@ -16,13 +16,13 @@
    + S3FullAccess  ..etc
    + Administrator Access
 + Attach IAM Role to EC2 Instance.
-
-### Install Terraform
+### CREATE an admin user to manage our EKS Cluster
 ```sh
-$ sudo adduser eksadmin
-$ sudo echo "eksadmin  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/eksadmin
-$ sudo su - eksadmin
+sudo adduser eksadmin
+sudo echo "eksadmin  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/eksadmin
+sudo su - eksadmin
 ```
+### Install Terraform
 ``` sh
 $ git clone https://github.com/mylandmarktechs/eks-terraform-setup
 $ cd eks-terraform-setup
